@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'navBar.html'%}
+
+{%block content%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .signup-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #111;
+        }
+        .form {
+            width: 400px;
+            padding: 30px;
+            padding-right: 50px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        input[type="submit"] {
+            background-color:  #350361;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="form">
+            <h2>Sign Up</h2>
+            <form action="" method="post">
+                {% csrf_token %}                
+              
+                <div class="form-group">
+                    <label for="Username">Username</label>
+                    <input type="text" id="Username" name="Username" required>
+                    {% if  userNameDuplicate == True%}
+                    <span class="block" style="display: block;color: #b6b5b5; padding-top: 4px ; font-size: 15px;">* This username already exists try a new one!</span>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{inputEmail}}" required>      
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" minlength="6" value = {{inputPassword}} >
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age"  value = "{{inputAge}}"required>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNo">Phone Number</label>
+                    <input type="text" id="phoneNo" name="phoneNo" pattern="[0-9]{11}"  value = {{inputPhone}} >
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Sign Up" >
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+
+</script>
+{%endblock content%}
+
+</html>

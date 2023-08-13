@@ -1,0 +1,109 @@
+{% extends 'userNavBar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Blog</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        #image-preview {
+            max-width: 100%;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>New blog</h2>
+        <form action="{% url 'createBlog' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div>
+                <label for="img">Image</label>
+                <input type="file" id="img" name="img" accept="image/*" required>
+                <img id="image-preview" src="#" alt="Image Preview">
+            </div>
+            <div>
+                <label for="content" style="margin-top: 10px;">Content</label>
+                <textarea id="content" name="content" rows="4" required></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Share" style="font-size: 18px;">
+            </div>
+        </form>
+    </div>
+    <script>
+        const imgInput = document.getElementById('img');
+        const imgPreview = document.getElementById('image-preview');
+
+        imgInput.addEventListener('change', function () {
+            const selectedImage = this.files[0];
+
+            if (selectedImage) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(selectedImage);
+            } else {
+                imgPreview.src = '#';
+                imgPreview.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+
+{% endblock content %}
+
+</html>

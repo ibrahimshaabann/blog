@@ -1,0 +1,48 @@
+<style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #000000; /* Dark blue */
+        overflow: hidden;
+    }
+
+    .navbar a {
+        color: #e0e0e0; /* Light gray */
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    .navbar a:hover {
+        background-color: #3f51b5; /* Highlight color */
+        color: #fff;
+    }
+
+    .navbar .logout {
+        background-color: #3f0808; /* Dark red */
+    }
+
+    .navbar .author-name {
+        color: #f0eeec; /* Amber color */
+        font-weight: bold;
+    }
+
+    .navbar-links {
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+<div class="navbar">
+    <div class="navbar-links">
+        <a href="{% url 'myBlogs'%}">My Blogs</a>
+        <a href="{% url 'createBlog'%}">Create Blog</a>
+        <a href="{% url 'allBlogs'%}">All Blogs</a>
+    </div>
+    <span class="author-name" style="margin-right: 170px;">{{ user.get_username }}</span>
+    <a href="{% url 'logout' %}" class="logout">Logout</a>
+</div>
+
+{% block content %}
+{% endblock content %}

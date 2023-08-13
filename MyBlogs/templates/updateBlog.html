@@ -1,0 +1,112 @@
+{% extends 'userNavBar.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Blog</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        input[type="file"] {
+            margin-top: 10px;
+        }
+        input[type="submit"] {
+            background-color: #3c6400; /* Green color */
+            color: #fff;
+            border: none;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 10px;
+        }
+    </style>
+
+    <script>
+        function previewImage(event) {
+            var preview = document.getElementById('image-preview');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+            }
+        }
+    </script>
+
+    </style>
+
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Update Blog</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+            <div>
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="{{ blogToUpdate.title }}" required>
+            </div>
+            <div>
+                <label for="content">Content</label>
+                <textarea id="content" name="content" rows="4" required>{{ blogToUpdate.content }}</textarea>
+            </div>
+                <label for="img">Image</label>
+                <img id="image-preview" class="image-preview" src="http://127.0.0.1:8000/media/{{ blogToUpdate.img }}" alt="Blog Image">
+                <input type="file" id="img" name="img" accept="image/*" onchange="previewImage(event)">
+            </div>
+            <div>
+                <input type="submit" value="Update" style="font-size: 18px;">
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>
+
+{% endblock content %}
